@@ -1,8 +1,11 @@
 require 'sinatra'
 require 'haml'
 
-#set :port, 80
-set :bind, '0.0.0.0'
+if ARGV[1] == '--ssl'
+  require './sinatra_ssl'
+  set :ssl_certificate, "server.crt"
+  set :ssl_key, "server.key"
+end
 
 configure do
   @@ACTIVITY = :Sleeping
@@ -19,7 +22,6 @@ helpers do
   end
 
   def authorized?
-    puts
     @auth ||= Rack::Auth::Basic::Request.new(request.env)
     @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == ['dev', 'rosebud']
   end
