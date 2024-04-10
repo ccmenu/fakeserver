@@ -77,6 +77,12 @@ get '/weird/cc.xml' do
   redirect "/cctray.xml"
 end
 
+get '/slow/cctray.xml' do
+  sleep 5
+  content_type :xml
+  haml :cctray
+end
+
 get '/dashboard/build/detail/connectfour' do
   haml :project
 end
