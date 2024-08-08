@@ -83,6 +83,10 @@ get '/slow/cctray.xml' do
   haml :cctray
 end
 
+get '/empty/cctray.xml' do
+  haml :empty
+end
+
 get '/dashboard/build/detail/connectfour' do
   haml :project
 end
@@ -130,6 +134,8 @@ __END__
     :activity => :Sleeping, :lastBuildStatus => :Unknown,
     :lastBuildLabel => "build.99", :lastBuildTime => "2007-07-18T18:44:48"}
 
+@@ empty
+!!! XML
 
 @@ project
 !!! 5
