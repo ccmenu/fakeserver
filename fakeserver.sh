@@ -1,5 +1,4 @@
 #! /bin/sh
 
-bundle install --path vendor/bundle
-bundle config set --local path 'vendor/bundle'
+bundle install
 bundle exec ruby fakeserver.rb "$@"
