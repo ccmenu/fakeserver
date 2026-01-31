@@ -96,8 +96,10 @@ __END__
 
 @@ control
 !!! 5
-%html
+%html{:style => "font-family: sans-serif"}
   %h1 Fake CI Server
+  %hr
+  %h2 Project: connectfour
   %table
     %tr
       %td Activitiy:
@@ -112,14 +114,12 @@ __END__
       %td Build time:
       %td= settings.project.build_time
   %p
-  %form{:name => "input", :action => "control/build", :method => "post"}
+  %form{:name => "input", :action => "control/build", :method => "post", :style => "display: inline"}
     %input{:type => "submit", :value => "Start build", :disabled => is_building() }
-  %form{:name => "input", :action => "control/success", :method => "post"}
+  %form{:name => "input", :action => "control/success", :method => "post", :style => "display: inline"}
     %input{:type => "submit", :value => "Success", :disabled => !is_building() }
-  %form{:name => "input", :action => "control/failure", :method => "post"}
+  %form{:name => "input", :action => "control/failure", :method => "post", :style => "display: inline"}
     %input{:type => "submit", :value => "Failure", :disabled => !is_building() }
-  %p
-  %a{:href => "ccmenu+http://localhost:4567/cctray.xml"} Add a project to CCMenu
 
 @@ cctray
 !!! XML
