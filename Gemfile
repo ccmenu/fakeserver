@@ -1,3 +1,6 @@
 source 'https://rubygems.org'
+gem 'ostruct'
+gem 'webrick'
+gem 'logger'
 gem 'sinatra', '~> 3.0'
 gem 'haml', '~> 6.0'

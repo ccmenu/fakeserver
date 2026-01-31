@@ -10,7 +10,7 @@ end
 Project = Struct.new(:activity, :status, :build_num, :build_time)
 
 configure do
-  @@project = Project.new(:Sleeping, :Success, 1, DateTime.now.to_s)
+  set :project, Project.new(:Sleeping, :Success, 1, DateTime.now.to_s)
 end
 
 helpers do
@@ -26,7 +26,7 @@ helpers do
   end
 
   def is_building()
-    @@project.activity != :Sleeping
+    settings.project.activity != :Sleeping
   end
 end
 
@@ -39,21 +39,21 @@ get '/control' do
 end
 
 post '/control/build' do
-  @@project.activity = :Building
-  @@project.build_num += 1
-  @@project.build_time = Time.now.iso8601
+  settings.project.activity = :Building
+  settings.project.build_num += 1
+  settings.project.build_time = Time.now.iso8601
   redirect "/control"
 end
 
 post '/control/success' do
-  @@project.status = :Success
-  @@project.activity = :Sleeping
+  settings.project.status = :Success
+  settings.project.activity = :Sleeping
   redirect "/control"
 end
 
 post '/control/failure' do
-  @@project.status = :Failure
-  @@project.activity = :Sleeping
+  settings.project.status = :Failure
+  settings.project.activity = :Sleeping
   redirect "/control"
 end
 
@@ -101,16 +101,16 @@ __END__
   %table
     %tr
       %td Activitiy:
-      %td= @@project.activity
+      %td= settings.project.activity
     %tr
       %td Status:
-      %td= @@project.status
+      %td= settings.project.status
     %tr
       %td Build number:
-      %td= @@project.build_num
+      %td= settings.project.build_num
     %tr
       %td Build time:
-      %td= @@project.build_time
+      %td= settings.project.build_time
   %p
   %form{:name => "input", :action => "control/build", :method => "post"}
     %input{:type => "submit", :value => "Start build", :disabled => is_building() }
@@ -128,8 +128,8 @@ __END__
     :activity => :Sleeping, :lastBuildStatus => :Success,
     :lastBuildLabel => "build.1234", :lastBuildTime => "2007-07-18T18:44:48"}
   %Project{:name => 'connectfour', :webUrl => 'http://localhost:4567/dashboard/build/detail/connectfour',
-    :activity => @@project.activity, :lastBuildStatus => @@project.status,
-    :lastBuildLabel => "build.#{@@project.build_num}", :lastBuildTime => @@project.build_time}
+    :activity => settings.project.activity, :lastBuildStatus => settings.project.status,
+    :lastBuildLabel => "build.#{settings.project.build_num}", :lastBuildTime => settings.project.build_time}
   %Project{:name => 'Some pipeline with a long name :: Project with a really long name', :webUrl => 'http://localhost:4567/dashboard/build/detail/dummy',
     :activity => :Sleeping, :lastBuildStatus => :Unknown,
     :lastBuildLabel => "build.99", :lastBuildTime => "2007-07-18T18:44:48"}
